@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 1</title>
+</head>
+<body>
+<form action="handler.php" method="get">
+    <div>
+        <label>
+            Parameter 1 <input type="text" placeholder="Parameter 1 value" name="param1">
+        </label>
+    </div>
+    <div>
+        <label>
+            Parameter 2 <input type="text" placeholder="Parameter 2 value" name="param2">
+        </label>
+    </div>
+    <div>
+        <label>
+            Parameter 3 <input type="text" placeholder="Parameter 3 value" name="param3">
+        </label>
+    </div>
+    <hr>
+    <div>
+        <label>
+            Note <br>
+            <textarea placeholder="Enter your note" name="note" cols="50" rows="10" maxlength="500"></textarea>
+        </label>
+    </div>
+    <hr>
+    <div>
+        Select temperature scales <br>
+        <label>
+            <input checked="checked" type="checkbox" value="Celsius" name="scale"> Celsius
+        </label>
+        <label>
+            <input type="checkbox" value="Kelvin" name="scale"> Kelvin
+        </label>
+        <label>
+            <input type="checkbox" value="Fahrenheit" name="scale"> Fahrenheit
+        </label>
+    </div>
+    <hr>
+    <div>
+        <label>
+            Select volume unit <br>
+            <label>
+                <input checked="checked" type="radio" value="L" name="volume_unit"> L
+            </label>
+            <label>
+                <input type="radio" value="mL" name="volume_unit"> mL
+            </label>
+            <label>
+                <input type="radio" value="&mu;L" name="volume_unit"> &mu;L
+            </label>
+        </label>
+    </div>
+    <hr>
+    <div>
+        <label>
+            Country selection <br>
+            <select name="country">
+                <option disabled selected>Select country</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="Germany">Germany</option>
+                <option value="Spain">Spain</option>
+                <option value="Australia">Australia</option>
+                <option value="Russia">Russia</option>
+            </select>
+        </label>
+    </div>
+    <hr>
+    <div>
+        <label>
+            City selection <br>
+            <select multiple name="city">
+                <option disabled selected>Select city</option>
+                <option value="Novosibirsk">Novosibirsk</option>
+                <option value="Moscow">Moscow</option>
+                <option value="Berlin">Berlin</option>
+                <option value="New York">New York</option>
+                <option value="Barcelona">Barcelona</option>
+                <option value="Sidney">Sidney</option>
+                <option value="Ottawa">Ottawa</option>
+            </select>
+        </label>
+    </div>
+    <hr>
+    <input type="reset" value="Reset">
+    <input type="submit" value="Submit">
+</form>
+<hr>
+<a href="page2.html">Go to page 2</a> <br>
+<a target="_blank" href="page2.html">Go to page 2 in a new tab</a>
+</body>
+</html>
