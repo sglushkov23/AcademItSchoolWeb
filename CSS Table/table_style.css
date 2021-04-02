@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, serif;
+    font-size: 20px;
+}
+
+.table_wrap {
+    max-width: 858px;
+    margin: 0 auto;
+}
+
+.table {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+
+.table > thead > tr {
+    background-color: #3498DB;
+}
+
+.table > tbody > tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+.table > tbody > tr:nth-child(even) {
+    background-color: #fff;
+}
+
+.table th, .table td {
+    padding: 16px 0 12px 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.table th {
+    color: #fff;
+}
