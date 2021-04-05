@@ -10,7 +10,6 @@ body {
 .content_wrap {
     background-color: #FEEED6;
     max-width: 848px;
-    max-height: 463px;
     margin: 0 auto;
     padding: 5px 12px;
 }
@@ -26,6 +25,7 @@ body {
 
 .content_wrap > div:last-child {
     margin-top: 16px;
+    margin-bottom: 0;
 }
 
 .course_content > p {
@@ -35,6 +35,10 @@ body {
     margin-top: 10px;
     margin-bottom: 16px;
     line-height: 23px;
+}
+
+.course_content > p:last-child {
+    margin-bottom: 0;
 }
 
 .info_type {
