@@ -11,31 +11,31 @@ body {
     max-width: 844px;
     font-size: 34px;
     margin: 0 auto;
-    padding: 0 0 0 21px;
+    padding: 0 0 4px 21px;
 }
 
 .form {
     background-color: #FEEED6;
     max-width: 844px;
-    max-height: 535px;
     margin: 0 auto;
-    padding: 21px;
+    padding: 18px 21px;
 }
 
 .form input, .form textarea {
     width: 100%;
     margin-bottom: 19px;
-    padding: 11px;
+    padding: 11px 14px;
     border: none;
+    background-color: #FFF;
+}
+
+.form textarea {
+    resize: vertical;
+    margin-bottom: 14px;
 }
 
 .form input:focus, .form textarea:focus {
     outline: 0;
-}
-
-.form div.button {
-    width: 172px;
-    margin-left: auto;
 }
 
 .form button {
@@ -45,19 +45,22 @@ body {
     padding: 10px 14px;
     border: none;
     background: #378DB2;
+    display: block;
+    margin-left: auto;
 }
 
-.form label {
-    margin: 0 auto;
+.form button:hover {
+    background-color: #136a85;
+    cursor: pointer;
 }
 
-.form label div {
+.form label span {
     font-weight: bold;
     margin-bottom: 8px;
+    display: block;
 }
 
 .form > div {
-    margin-top: -2px;
-    margin-bottom: 16px;
+    margin-bottom: 13px;
     font-size: 16px;
 }

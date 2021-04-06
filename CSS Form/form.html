@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,25 +10,23 @@
 <div class="header">Отправить заявку</div>
 <form class="form" action="handler.php" method="post">
     <label>
-        <div>Ваше имя</div>
+        <span>Ваше имя</span>
         <input type="text" placeholder="Ваше имя *" required name="clientName">
     </label> <br>
     <label>
-        <div>Ваш номер телефона</div>
+        <span>Ваш номер телефона</span>
         <input type="text" placeholder="Ваш номер телефона *" required name="clientPhone">
     </label> <br>
     <label>
-        <div>Ваш email или VK</div>
+        <span>Ваш email или VK</span>
         <input type="text" placeholder="Ваш email или VK *" required name="clientEmail">
     </label> <br>
     <label>
-        <div>Комментарий</div>
+        <span>Комментарий</span>
         <textarea placeholder="Комментарий (не обязательно)" name="clientComment" rows="6"></textarea>
     </label>
     <div>Заполните и отправьте форму, и мы перезвоним Вам по указанному номеру</div>
-    <div class="button">
-        <button type="submit">Отправить заявку</button>
-    </div>
+    <button type="submit">Отправить заявку</button>
 </form>
 </body>
 </html>
