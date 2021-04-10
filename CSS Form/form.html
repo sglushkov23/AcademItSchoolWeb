@@ -9,22 +9,23 @@
 <body>
 <div class="header">Отправить заявку</div>
 <form class="form" action="handler.php" method="post">
-    <label>
-        <span>Ваше имя</span>
-        <input type="text" placeholder="Ваше имя *" required name="clientName">
-    </label> <br>
-    <label>
-        <span>Ваш номер телефона</span>
-        <input type="text" placeholder="Ваш номер телефона *" required name="clientPhone">
-    </label> <br>
-    <label>
-        <span>Ваш email или VK</span>
-        <input type="text" placeholder="Ваш email или VK *" required name="clientEmail">
-    </label> <br>
-    <label>
-        <span>Комментарий</span>
-        <textarea placeholder="Комментарий (не обязательно)" name="clientComment" rows="6"></textarea>
-    </label>
+    <div>
+        <label for="clientName">Ваше имя</label>
+        <input type="text" id="clientName" placeholder="Ваше имя *" required name="clientName">
+    </div>
+    <div>
+        <label for="clientPhone">Ваш номер телефона</label>
+        <input type="text" id="clientPhone" placeholder="Ваш номер телефона *" required name="clientPhone">
+    </div>
+    <div>
+        <label for="clientEmail">Ваш email или VK</label>
+        <input type="text" id="clientEmail" placeholder="Ваш email или VK *" required name="clientEmail">
+    </div>
+    <div>
+        <label for="clientComment">Комментарий</label>
+        <textarea id="clientComment" placeholder="Комментарий (не обязательно)" name="clientComment"
+                  rows="6"></textarea>
+    </div>
     <div>Заполните и отправьте форму, и мы перезвоним Вам по указанному номеру</div>
     <button type="submit">Отправить заявку</button>
 </form>
