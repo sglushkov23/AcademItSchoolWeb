@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="temperature_style.css">
+</head>
+<body>
+<form class="form" action="handler.php" method="post">
+    <div class="input-container">
+        <label>Input Panel</label>
+        <div>
+            <label for="celsiusTemperature">Enter Celsius Temperature</label>
+            <input type="text" id="celsiusTemperature" value="0" name="celsiusTemperature">
+        </div>
+    </div>
+    <div class="output-container">
+        <label>Output Panel</label>
+        <div>
+            <label for="kelvinTemperature">Kelvin Temperature Result</label>
+            <input type="text" disabled="disabled" id="kelvinTemperature" name="kelvinTemperature">
+        </div>
+        <div>
+            <label for="fahrenheitTemperature">Fahrenheit Temperature Result</label>
+            <input type="text" disabled="disabled" id="fahrenheitTemperature" name="fahrenheitTemperature">
+        </div>
+    </div>
+    <button type="submit">Convert Temperature</button>
+</form>
+<script src="temperature_script.js"></script>
+</body>
+</html>
