@@ -43,10 +43,6 @@ body {
     text-align: right;
 }
 
-.output-container input {
-
-}
-
 .output-container > div:last-child {
     margin-top: 20px;
 }
