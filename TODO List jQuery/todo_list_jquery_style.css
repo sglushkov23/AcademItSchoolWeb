@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+}
+
+.header, #new-note-text-field, #add-button, #error-message, #list {
+    margin-left: 10px;
+}
+
+.error, .prompt {
+    color: red;
+    margin-top: 10px;
+}
+
+.todo-list button{
+    margin-left: 10px;
+}
+
+.todo-list li + li {
+    margin-top: 10px;
+}
