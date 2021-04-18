@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>PhoneBook jQuery</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="libs/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" href="phone_book_jquery_style.css">
+    <script defer src="libs/jquery-3.6.0.js"></script>
+    <script defer src="libs/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script defer src="phone_book_jquery_script.js"></script>
+</head>
+<body>
+<h1 class="header">Телефонная книга</h1>
+<form class="form">
+    <div>
+        <label for="surname">Фамилия</label>
+        <input type="text" id="surname" placeholder="Введите фамилию *" required name="surname">
+        <div class="error" id="surname-error-message"></div>
+    </div>
+    <div>
+        <label for="name">Имя</label>
+        <input type="text" id="name" placeholder="Введите имя *" required name="name">
+        <div class="error" id="name-error-message"></div>
+    </div>
+    <div>
+        <label for="phone">Номер телефона</label>
+        <input type="text" id="phone" placeholder="Введите номер телефона *" required name="phone">
+        <div class="error" id="phone-error-message"></div>
+    </div>
+    <button id="add-button" type="submit">Добавить запись</button>
+</form>
+
+<div class="table_wrap">
+    <table class="table">
+        <thead>
+        <tr>
+            <th><label><input id='all-rows-selector' type='checkbox' name='all-rows-selector'></label></th>
+            <th>№</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Номер телефона</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+    <button id="delete-selected-rows-button" class="delete-rows-button" type="button">Удалить выбранное</button>
+</div>
+
+<div id="dialog" title="Подтверждение удаления">
+    <p>Вы уверены, что хотите удалить выбранную запись?</p>
+</div>
+</body>
+</html>
