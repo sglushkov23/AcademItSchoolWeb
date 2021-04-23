@@ -14,13 +14,18 @@
             .filter(function (e) {
                 return e.age >= minAge && e.age <= maxAge;
             })
-            .sortBy("age");
+            .sortBy("age")
+            .value();
     }
 
     function addFullNameField(people) {
-        return _.each(people, function (e) {
+        var peopleCopy = $.extend(true, [], people);
+
+        _.each(peopleCopy, function (e) {
             e.fullName = e.lastName + " " + e.name;
-        })
+        });
+
+        return peopleCopy;
     }
 
     var people = [
@@ -36,12 +41,14 @@
         {age: 14, name: "Федор", lastName: "Мальцев"}
     ];
 
-    console.log("Средний возраст людей: " + getMeanAge(people));
+    console.log("1) Исходный список людей:");
+    console.log(people);
 
-    console.log("Список людей с возрастом от 20 до 30 лет:");
+    console.log("2) Средний возраст людей: " + getMeanAge(people));
+
+    console.log("3) Список людей с возрастом от 20 до 30 лет:");
     console.log(getSortedPeopleListOfGivenAgesRange(people, 20, 30));
 
-    console.log("Список людей после добавления поля fullName:");
-    addFullNameField(people);
-    console.log(people);
+    console.log("4) Список людей после добавления поля fullName:");
+    console.log(addFullNameField(people));
 })();
