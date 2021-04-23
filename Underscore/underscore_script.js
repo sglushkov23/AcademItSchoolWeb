@@ -18,7 +18,7 @@
             .value();
     }
 
-    function addFullNameField(people) {
+    function getPeopleListWithFullNameFieldAdded(people) {
         var peopleCopy = $.extend(true, [], people);
 
         _.each(peopleCopy, function (e) {
@@ -50,5 +50,5 @@
     console.log(getSortedPeopleListOfGivenAgesRange(people, 20, 30));
 
     console.log("4) Список людей после добавления поля fullName:");
-    console.log(addFullNameField(people));
+    console.log(getPeopleListWithFullNameFieldAdded(people));
 })();
