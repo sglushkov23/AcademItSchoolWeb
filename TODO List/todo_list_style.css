@@ -6,16 +6,16 @@ body {
     font-family: 'Courier New', monospace;
 }
 
-.header, #new-note-text-field, #add-button, #error-message, #list {
+.header, .note-field, .button, .error, .todo-list {
     margin-left: 10px;
 }
 
 .error, .prompt {
-    color: red;
+    color: #f00;
     margin-top: 10px;
 }
 
-.todo-list button{
+.todo-list button {
     margin-left: 10px;
 }
 

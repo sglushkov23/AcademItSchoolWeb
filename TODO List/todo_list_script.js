@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
     var errorMessage = document.getElementById("error-message");
 
     addButton.addEventListener("click", function () {
-        var text = newTodoTextField.value;
+        var text = newTodoTextField.value.trim();
 
         if (text === "") {
+            newTodoTextField.value = "";
             errorMessage.textContent = "Please enter text";
 
             return;
@@ -25,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
             newTodoTextField.value = "";
 
             listItem.querySelector(".delete-button").addEventListener("click", function () {
-                console.log("delete handler call");
                 listItem.parentNode.removeChild(listItem);
             });
 
@@ -35,22 +35,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     "<button class='save-button' type='button'>Save</button>" +
                     "<div class='prompt'></div>";
 
+                listItem.querySelector(".new-text").value = text;
+
                 listItem.querySelector(".cancel-button").addEventListener("click", function () {
                     showAndEditListItem();
                 });
 
                 listItem.querySelector('.save-button').addEventListener("click", function () {
-                    var newText = listItem.querySelector(".new-text").value;
+                    var newText = listItem.querySelector(".new-text").value.trim();
                     var promptMessage = listItem.querySelector(".prompt");
 
-                    if (newText === ""){
+                    if (newText === "") {
+                        listItem.querySelector(".new-text").value = "";
                         promptMessage.textContent = "Please enter text or press Cancel.";
-
-                        return;
-                    }
-
-                    if (newText === text) {
-                        promptMessage.textContent = "You did not change the text. Please enter new text or press Cancel.";
 
                         return;
                     }
@@ -65,5 +62,5 @@ document.addEventListener("DOMContentLoaded", function () {
         var listItem = document.createElement("li");
         list.appendChild(listItem);
         showAndEditListItem();
-    })
+    });
 });
