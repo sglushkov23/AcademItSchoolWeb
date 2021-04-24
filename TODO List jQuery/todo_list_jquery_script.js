@@ -7,9 +7,10 @@ $(function () {
     var errorMessage = $("#error-message");
 
     addButton.click(function () {
-        var text = newTodoTextField.val();
+        var text = newTodoTextField.val().trim();
 
         if (text === "") {
+            newTodoTextField.val("");
             errorMessage.text("Please enter text");
 
             return;
@@ -34,22 +35,19 @@ $(function () {
                     "<button class='save-button' type='button'>Save</button>" +
                     "<div class='prompt'></div>");
 
+                listItem.find(".new-text").val(text);
+
                 listItem.find(".cancel-button").click(function () {
                     showAndEditListItem();
                 });
 
                 listItem.find('.save-button').click(function () {
-                    var newText = listItem.find(".new-text").val();
+                    var newText = listItem.find(".new-text").val().trim();
                     var promptMessage = listItem.find(".prompt");
 
                     if (newText === "") {
+                        listItem.find(".new-text").val("");
                         promptMessage.text("Please enter text or press Cancel.");
-
-                        return;
-                    }
-
-                    if (newText === text) {
-                        promptMessage.text("You did not change the text. Please enter new text or press Cancel.");
 
                         return;
                     }
@@ -64,5 +62,5 @@ $(function () {
         var listItem = $("<li>");
         list.append(listItem);
         showAndEditListItem();
-    })
+    });
 });
