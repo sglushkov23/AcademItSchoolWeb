@@ -15,9 +15,9 @@ $(function () {
     addButton.click(function (e) {
         e.preventDefault();
 
-        var surname = surnameField.val();
-        var name = nameField.val();
-        var phone = phoneField.val();
+        var surname = surnameField.val().trim();
+        var name = nameField.val().trim();
+        var phone = phoneField.val().trim();
 
         if (isInvalidForm(surname, name, phone)) {
             return;
@@ -28,23 +28,12 @@ $(function () {
     });
 
     deleteSelectedRowsButton.click(function () {
-        tableBody.find("tr").filter(function () {
-            return $(this).find(":checked").length !== 0;
-        }).remove();
-
+        tableBody.find("tr:has(:checked)").remove();
         renumberRows();
     });
 
     allRowsSelector.change(function () {
-        if (this.checked) {
-            $(".selector").each(function () {
-                $(this).prop("checked", true);
-            });
-        } else {
-            $(".selector").each(function () {
-                $(this).prop("checked", false);
-            });
-        }
+        $(".selector").prop("checked", this.checked)
     });
 
     function isInvalidForm(surname, name, phone) {
@@ -53,18 +42,21 @@ $(function () {
         phoneErrorMessage.text("");
 
         if (surname === "") {
+            surnameField.val("");
             surnameErrorMessage.text("Пожалуйста, введите фамилию");
-            surnameField.css({border: "1px solid red"})
+            $(".surname-input-error").css({border: "1px solid red"});
         }
 
         if (name === "") {
+            nameField.val("");
             nameErrorMessage.text("Пожалуйста, введите имя");
-            nameField.css({border: "1px solid red"})
+            $(".name-input-error").css({border: "1px solid red"});
         }
 
         if (phone === "") {
+            phoneField.val("");
             phoneErrorMessage.text("Пожалуйста, введите номер телефона");
-            phoneField.css({border: "1px solid red"})
+            $(".phone-input-error").css({border: "1px solid red"});
         }
 
         var hasGivenPhone = hasGivenPhoneNumber(phone);
@@ -81,9 +73,9 @@ $(function () {
         nameField.val("");
         phoneField.val("");
 
-        surnameField.css({border: ""})
-        nameField.css({border: ""})
-        phoneField.css({border: ""})
+        $(".surname-input-error").css({border: ""})
+        $(".name-input-error").css({border: ""})
+        $(".phone-input-error").css({border: ""})
     }
 
     function addNewRecord(surname, name, phone) {

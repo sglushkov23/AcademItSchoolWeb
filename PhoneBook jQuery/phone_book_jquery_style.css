@@ -84,6 +84,6 @@ body {
     color: #fff;
 }
 
-#dialog {
+.dialog-text {
     display: none;
 }

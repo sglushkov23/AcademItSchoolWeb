@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>PhoneBook jQuery</title>
+
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="libs/jquery-ui-1.12.1.custom/jquery-ui.css">
     <link rel="stylesheet" href="phone_book_jquery_style.css">
+
     <script defer src="libs/jquery-3.6.0.js"></script>
     <script defer src="libs/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script defer src="phone_book_jquery_script.js"></script>
@@ -15,17 +17,19 @@
 <form class="form">
     <div>
         <label for="surname">Фамилия</label>
-        <input type="text" id="surname" placeholder="Введите фамилию *" required name="surname">
+        <input type="text" class="surname-input-error" id="surname" placeholder="Введите фамилию *" required
+               name="surname">
         <div class="error" id="surname-error-message"></div>
     </div>
     <div>
         <label for="name">Имя</label>
-        <input type="text" id="name" placeholder="Введите имя *" required name="name">
+        <input type="text" class="name-input-error" id="name" placeholder="Введите имя *" required name="name">
         <div class="error" id="name-error-message"></div>
     </div>
     <div>
         <label for="phone">Номер телефона</label>
-        <input type="text" id="phone" placeholder="Введите номер телефона *" required name="phone">
+        <input type="text" class="phone-input-error" id="phone" placeholder="Введите номер телефона *" required
+               name="phone">
         <div class="error" id="phone-error-message"></div>
     </div>
     <button id="add-button" type="submit">Добавить запись</button>
@@ -48,7 +52,7 @@
     <button id="delete-selected-rows-button" class="delete-rows-button" type="button">Удалить выбранное</button>
 </div>
 
-<div id="dialog" title="Подтверждение удаления">
+<div id="dialog" class="dialog-text" title="Подтверждение удаления">
     <p>Вы уверены, что хотите удалить выбранную запись?</p>
 </div>
 </body>
