@@ -1,0 +1,11 @@
+.container {
+    max-width: 700px;
+}
+
+[v-cloak], .input-error {
+    display: none;
+}
+
+.error-message {
+    color: #f00;
+}

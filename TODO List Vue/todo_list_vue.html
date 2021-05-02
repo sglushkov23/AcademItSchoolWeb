@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TODO List Vue</title>
+
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="todo_list_vue_style.css" rel="stylesheet">
+
+    <script defer src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script defer src="node_modules/vue/dist/vue.min.js"></script>
+    <script defer src="todo_list_vue_script.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div v-cloak id="app">
+        <todo-list></todo-list>
+    </div>
+</div>
+
+<script id="todo-list-template" type="text/x-template">
+    <div>
+        <h1 class="mb-2">TODO List Vue</h1>
+
+        <div class="row mb-3">
+            <div class="col pr-2">
+                <input class="form-control" type="text" v-model="newTodoItem" placeholder="Note text">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary" @click="addNewItem">Add</button>
+            </div>
+        </div>
+
+        <div class="mb-3 error-message" v-show="isEmptyText">Please enter text</div>
+
+        <ul>
+            <todo-list-item
+                    v-for="item in items"
+                    @delete-item="deleteItem"
+                    @save-item="saveEditedItem"
+                    :item="item"
+                    :key="item.id"></todo-list-item>
+        </ul>
+    </div>
+</script>
+
+<script id="todo-list-item-template" type="text/x-template">
+    <li class="mb-2">
+        <template v-if="isEditing">
+            <input type="text" v-model="editText"></input>
+            <button class="btn btn-primary" type="button" @click="saveEditedItem">Save</button>
+            <button class="btn btn-primary" type="button" @click="cancelEditing">Cancel</button>
+            <div class="mt-1 mb-3 error-message" v-show="isEmptyEditText">Please enter text or press cancel</div>
+        </template>
+
+        <template v-else>
+            <span class="mr-3">{{item.text}}</span>
+            <button class="btn btn-primary" type="button" @click="editItem">Edit</button>
+            <button class="btn btn-danger" type="button" @click="deleteItem">Delete</button>
+        </template>
+    </li>
+</script>
+</body>
+</html>
