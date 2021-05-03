@@ -75,7 +75,6 @@ $(function () {
                 ]
             });
         });
-
     });
 
     allRowsSelector.change(function () {
