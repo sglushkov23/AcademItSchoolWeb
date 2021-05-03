@@ -31,19 +31,32 @@ body {
     margin-bottom: 10px;
     padding: 10px;
     border: none;
-    background-color: #FFF;
+    background-color: #fff;
 }
 
 .form button, .delete-rows-button {
     font-weight: bold;
     font-size: 16px;
-    color: #FFF;
+    color: #fff;
     padding: 10px 14px;
     border: none;
     background-color: #3498DB;
     display: block;
     margin-left: auto;
     margin-top: 10px;
+}
+
+.add-button:hover, .delete-rows-button:hover {
+    background-color: #136a85;
+    cursor: pointer;
+}
+
+.delete-button:hover, .selector:hover, .all-rows-selector:hover {
+    cursor: pointer;
+}
+
+.form .input-error {
+    border: 1px solid #f00;
 }
 
 .error {

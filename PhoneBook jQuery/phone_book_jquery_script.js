@@ -20,6 +20,32 @@ $(function () {
         var phone = phoneField.val().trim();
 
         if (isInvalidForm(surname, name, phone)) {
+            surnameField.change(function () {
+                if (surnameField.val().trim() !== "") {
+                    surnameField.removeClass("input-error");
+                    surnameErrorMessage.text("");
+                }
+            });
+
+            nameField.change(function () {
+                if (nameField.val().trim() !== "") {
+                    nameField.removeClass("input-error");
+                    nameErrorMessage.text("");
+                }
+            });
+
+            phoneField.change(function () {
+                var phoneCorrected = phoneField.val().trim();
+
+                if (phoneCorrected !== "" && !hasGivenPhoneNumber(phoneCorrected)) {
+                    phoneField.removeClass("input-error");
+                    phoneErrorMessage.text("");
+                } else if (phoneCorrected !== "" && hasGivenPhoneNumber(phoneCorrected)) {
+                    phoneField.addClass("input-error");
+                    phoneErrorMessage.text("Контакт с таким номером телефона уже добавлен");
+                }
+            });
+
             return;
         }
 
@@ -28,40 +54,57 @@ $(function () {
     });
 
     deleteSelectedRowsButton.click(function () {
-        tableBody.find("tr:has(:checked)").remove();
-        renumberRows();
+        $("#dialog > p").text("Вы уверены, что хотите удалить выделенные записи?");
+
+        $(function () {
+            $("#dialog").dialog({
+                modal: true,
+                buttons: [
+                    {
+                        text: "Да", click: function () {
+                            tableBody.find("tr:has(:checked)").remove();
+                            renumberRows();
+                            $(this).dialog("close");
+                        }
+                    },
+                    {
+                        text: "Нет", click: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                ]
+            });
+        });
+
     });
 
     allRowsSelector.change(function () {
-        $(".selector").prop("checked", this.checked)
+        $(".selector").prop("checked", this.checked);
     });
 
     function isInvalidForm(surname, name, phone) {
-        surnameErrorMessage.text("");
-        nameErrorMessage.text("");
-        phoneErrorMessage.text("");
-
         if (surname === "") {
             surnameField.val("");
+            surnameField.addClass("input-error");
             surnameErrorMessage.text("Пожалуйста, введите фамилию");
-            $(".surname-input-error").css({border: "1px solid red"});
         }
 
         if (name === "") {
             nameField.val("");
+            nameField.addClass("input-error");
             nameErrorMessage.text("Пожалуйста, введите имя");
-            $(".name-input-error").css({border: "1px solid red"});
         }
 
         if (phone === "") {
             phoneField.val("");
+            phoneField.addClass("input-error");
             phoneErrorMessage.text("Пожалуйста, введите номер телефона");
-            $(".phone-input-error").css({border: "1px solid red"});
         }
 
         var hasGivenPhone = hasGivenPhoneNumber(phone);
 
         if (hasGivenPhone) {
+            phoneField.addClass("input-error");
             phoneErrorMessage.text("Контакт с таким номером телефона уже добавлен");
         }
 
@@ -72,10 +115,6 @@ $(function () {
         surnameField.val("");
         nameField.val("");
         phoneField.val("");
-
-        $(".surname-input-error").css({border: ""})
-        $(".name-input-error").css({border: ""})
-        $(".phone-input-error").css({border: ""})
     }
 
     function addNewRecord(surname, name, phone) {
@@ -98,8 +137,11 @@ $(function () {
         newRecord.find(".name").text(name);
         newRecord.find(".phone").text(phone);
         newRecord.find(".delete-button").click(function () {
+            $("#dialog > p").text("Вы уверены, что хотите удалить выбранную запись?");
+
             $(function () {
                 $("#dialog").dialog({
+                    modal: true,
                     buttons: [
                         {
                             text: "Да", click: function () {

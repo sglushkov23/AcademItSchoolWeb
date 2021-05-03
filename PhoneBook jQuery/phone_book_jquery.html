@@ -17,29 +17,28 @@
 <form class="form">
     <div>
         <label for="surname">Фамилия</label>
-        <input type="text" class="surname-input-error" id="surname" placeholder="Введите фамилию *" required
-               name="surname">
+        <input type="text" id="surname" placeholder="Введите фамилию *" required name="surname">
         <div class="error" id="surname-error-message"></div>
     </div>
     <div>
         <label for="name">Имя</label>
-        <input type="text" class="name-input-error" id="name" placeholder="Введите имя *" required name="name">
+        <input type="text" id="name" placeholder="Введите имя *" required name="name">
         <div class="error" id="name-error-message"></div>
     </div>
     <div>
         <label for="phone">Номер телефона</label>
-        <input type="text" class="phone-input-error" id="phone" placeholder="Введите номер телефона *" required
-               name="phone">
+        <input type="text" id="phone" placeholder="Введите номер телефона *" required name="phone">
         <div class="error" id="phone-error-message"></div>
     </div>
-    <button id="add-button" type="submit">Добавить запись</button>
+    <button id="add-button" class="add-button" type="submit">Добавить запись</button>
 </form>
 
 <div class="table_wrap">
     <table class="table">
         <thead>
         <tr>
-            <th><label><input id='all-rows-selector' type='checkbox' name='all-rows-selector'></label></th>
+            <th><label><input id="all-rows-selector" class="all-rows-selector" type="checkbox" name="all-rows-selector"></label>
+            </th>
             <th>№</th>
             <th>Фамилия</th>
             <th>Имя</th>
@@ -53,7 +52,7 @@
 </div>
 
 <div id="dialog" class="dialog-text" title="Подтверждение удаления">
-    <p>Вы уверены, что хотите удалить выбранную запись?</p>
+    <p></p>
 </div>
 </body>
 </html>
