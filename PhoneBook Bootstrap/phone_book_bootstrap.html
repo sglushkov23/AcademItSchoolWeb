@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <title>PhoneBook Bootstrap</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,32 +11,27 @@
     <script defer src="node_modules/jquery/dist/jquery.min.js"></script>
     <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script defer src="phone_book_bootstrap_script.js"></script>
-
-    <title>PhoneBook Bootstrap</title>
 </head>
 <body>
 <div class="container">
     <h1 class="header mb-4">Телефонная книга</h1>
-    <form class="mb-4 p-3 border">
+    <form class="mb-4 p-3 border needs-validation" novalidate>
         <div class="mb-3">
             <label for="surname" class="form-label">Фамилия</label>
-            <input type="text" class="form-control surname-input-error" id="surname" placeholder="Введите фамилию *"
-                   required
+            <input type="text" class="form-control" id="surname" placeholder="Введите фамилию *" required
                    name="surname">
-            <div class="form-text error" id="surname-error-message"></div>
+            <div class="invalid-feedback">Пожалуйста, введите фамилию.</div>
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">Имя</label>
-            <input type="text" class="form-control name-input-error" id="name" placeholder="Введите имя *" required
-                   name="name">
-            <div class="form-text error" id="name-error-message"></div>
+            <input type="text" class="form-control" id="name" placeholder="Введите имя *" required name="name">
+            <div class="invalid-feedback">Пожалуйста, введите имя.</div>
         </div>
         <div class="mb-4">
             <label for="phone" class="form-label">Номер телефона</label>
-            <input type="tel" class="form-control phone-input-error" id="phone" placeholder="Введите номер телефона *"
-                   required
+            <input type="tel" class="form-control" id="phone" placeholder="Введите номер телефона *" required
                    name="phone">
-            <div class="form-text error" id="phone-error-message"></div>
+            <div class="invalid-feedback"></div>
         </div>
 
         <button type="submit" class="btn btn-primary" id="add-button">Добавить запись</button>
@@ -55,24 +51,24 @@
         <tbody id="table-body"></tbody>
     </table>
 
-    <button id="delete-selected-rows-button" class="btn btn-primary delete-rows-button" type="button">Удалить
-        выбранное
+    <button id="delete-selected-rows-button" class="btn btn-primary delete-rows-button" type="button"
+            data-toggle="modal" data-target="#dialog">Удалить выбранное
     </button>
-</div>
 
-<div class="modal fade" id="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Подтверждение удаления</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Вы уверены, что хотите удалить выбранную запись?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
-                <button type="button" class="btn btn-primary" id="yes-button">Да</button>
+    <div class="modal fade" id="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Подтверждение удаления</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+                    <button type="button" class="btn btn-primary" id="yes-button">Да</button>
+                </div>
             </div>
         </div>
     </div>

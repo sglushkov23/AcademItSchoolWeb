@@ -4,9 +4,6 @@ $(function () {
     var surnameField = $("#surname");
     var nameField = $("#name");
     var phoneField = $("#phone");
-    var surnameErrorMessage = $("#surname-error-message");
-    var nameErrorMessage = $("#name-error-message");
-    var phoneErrorMessage = $("#phone-error-message");
     var addButton = $("#add-button");
     var tableBody = $("#table-body");
     var deleteSelectedRowsButton = $("#delete-selected-rows-button");
@@ -21,6 +18,44 @@ $(function () {
         var phone = phoneField.val().trim();
 
         if (isInvalidForm(surname, name, phone)) {
+            surnameField.on("input", function () {
+                if (surnameField.val().trim() !== "") {
+                    surnameField.removeClass("is-invalid");
+                    surnameField.addClass("is-valid");
+                } else {
+                    surnameField.addClass("is-invalid");
+                    surnameField.removeClass("is-valid");
+                }
+            });
+
+            nameField.on("input", function () {
+                if (nameField.val().trim() !== "") {
+                    nameField.removeClass("is-invalid");
+                    nameField.addClass("is-valid");
+                } else {
+                    nameField.addClass("is-invalid");
+                    nameField.removeClass("is-valid");
+                }
+            });
+
+            phoneField.on("input", function () {
+                var phoneCorrected = phoneField.val().trim();
+
+                if (phoneCorrected === "") {
+                    phoneField.addClass("is-invalid");
+                    $("div:has(#phone) > .invalid-feedback").text("Пожалуйста, введите номер телефона.");
+                } else {
+                    if (!hasGivenPhoneNumber(phoneCorrected)) {
+                        phoneField.removeClass("is-invalid");
+                        phoneField.addClass("is-valid");
+                        $("div:has(#phone) > .invalid-feedback").text("");
+                    } else {
+                        phoneField.addClass("is-invalid");
+                        $("div:has(#phone) > .invalid-feedback").text("Контакт с таким номером телефона уже добавлен.");
+                    }
+                }
+            });
+
             return;
         }
 
@@ -28,9 +63,22 @@ $(function () {
         addNewRecord(surname, name, phone);
     });
 
-    deleteSelectedRowsButton.click(function () {
-        tableBody.find("tr:has(:checked)").remove();
-        renumberRows();
+    deleteSelectedRowsButton.click(function (e) {
+        var recordsToRemove = tableBody.find("tr:has(:checked)");
+
+        if (recordsToRemove.length === 0) {
+            e.stopPropagation();
+
+            return;
+        }
+
+        $("#dialog .modal-body").text("Вы уверены, что хотите удалить выделенные записи?");
+
+        dialog.find("#yes-button").click(function () {
+            recordsToRemove.remove();
+            renumberRows();
+            dialog.modal("hide");
+        });
     });
 
     allRowsSelector.change(function () {
@@ -38,33 +86,27 @@ $(function () {
     });
 
     function isInvalidForm(surname, name, phone) {
-        surnameErrorMessage.text("");
-        nameErrorMessage.text("");
-        phoneErrorMessage.text("");
-
         if (surname === "") {
             surnameField.val("");
-            surnameErrorMessage.text("Пожалуйста, введите фамилию");
-            $(".surname-input-error").css({border: "1px solid red"});
+            surnameField.addClass("is-invalid");
         }
 
         if (name === "") {
             nameField.val("");
-            nameErrorMessage.text("Пожалуйста, введите имя");
-            $(".name-input-error").css({border: "1px solid red"});
+            nameField.addClass("is-invalid");
         }
 
         if (phone === "") {
             phoneField.val("");
-            phoneErrorMessage.text("Пожалуйста, введите номер телефона");
-            $(".phone-input-error").css({border: "1px solid red"});
+            phoneField.addClass("is-invalid");
+            $("div:has(#phone) > .invalid-feedback").text("Пожалуйста, введите номер телефона.");
         }
 
         var hasGivenPhone = hasGivenPhoneNumber(phone);
 
         if (hasGivenPhone) {
-            phoneErrorMessage.text("Контакт с таким номером телефона уже добавлен");
-            $(".phone-input-error").css({border: "1px solid red"});
+            phoneField.addClass("is-invalid");
+            $("div:has(#phone) > .invalid-feedback").text("Контакт с таким номером телефона уже добавлен.");
         }
 
         return surname === "" || name === "" || phone === "" || hasGivenPhone;
@@ -75,9 +117,9 @@ $(function () {
         nameField.val("");
         phoneField.val("");
 
-        $(".surname-input-error").css({border: ""});
-        $(".name-input-error").css({border: ""});
-        $(".phone-input-error").css({border: ""});
+        surnameField.removeClass("is-valid");
+        nameField.removeClass("is-valid");
+        phoneField.removeClass("is-valid");
     }
 
     function addNewRecord(surname, name, phone) {
@@ -91,7 +133,7 @@ $(function () {
             "<td class='surname'></td>" +
             "<td class='name'></td>" +
             "<td class='phone'></td>" +
-            "<td class='delete'><button type='button' class='delete-button btn btn-primary' data-bs-toggle='modal' data-bs-target='#dialog'>x</button></td>"
+            "<td class='delete'><button type='button' class='delete-button btn btn-primary' data-toggle='modal' data-target='#dialog'>x</button></td>"
         );
 
         newRecord.find(".select").attr("value", rowsCount.toString())
@@ -100,10 +142,12 @@ $(function () {
         newRecord.find(".name").text(name);
         newRecord.find(".phone").text(phone);
         newRecord.find(".delete-button").click(function () {
+            $("#dialog .modal-body").text("Вы уверены, что хотите удалить выбранную запись?");
+
             var handler = function () {
                 newRecord.remove();
                 renumberRows();
-                dialog.modal('hide');
+                dialog.modal("hide");
             }
 
             dialog.find("#yes-button").click(handler);
