@@ -15,15 +15,15 @@
 </head>
 
 <body>
-<div class="container">
-    <div v-cloak id="app">
+<div v-cloak id="app">
+    <div class="container">
         <todo-list></todo-list>
     </div>
 </div>
 
 <script id="todo-list-template" type="text/x-template">
     <div>
-        <h1 class="mb-2">TODO List Vue</h1>
+        <h1 class="my-3">TODO List Vue</h1>
 
         <div class="row mb-3">
             <div class="col pr-2">
@@ -50,14 +50,23 @@
 <script id="todo-list-item-template" type="text/x-template">
     <li class="mb-2">
         <template v-if="isEditing">
-            <input type="text" v-model="editText"></input>
-            <button class="btn btn-primary" type="button" @click="saveEditedItem">Save</button>
-            <button class="btn btn-primary" type="button" @click="cancelEditing">Cancel</button>
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" v-model="editText">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="button" @click="saveEditedItem">Save</button>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-secondary" type="button" @click="cancelEditing">Cancel</button>
+                </div>
+            </div>
+
             <div class="mt-1 mb-3 error-message" v-show="isEmptyEditText">Please enter text or press cancel</div>
         </template>
 
         <template v-else>
-            <span class="mr-3">{{item.text}}</span>
+            <span class="mr-3">{{ item.text }}</span>
             <button class="btn btn-primary" type="button" @click="editItem">Edit</button>
             <button class="btn btn-danger" type="button" @click="deleteItem">Delete</button>
         </template>
