@@ -14,8 +14,8 @@
     <script defer src="phone_book_vue_script.js"></script>
 </head>
 <body>
-<div class="container">
-    <div v-cloak id="app">
+<div v-cloak id="app">
+    <div class="container">
         <record-creation-form :has-given-phone-number="hasGivenPhoneNumber"
                               @add-new-record="addNewRecord"
                               @need-check-phone="savePhoneNumberToCheck"></record-creation-form>
@@ -27,7 +27,7 @@
 
 <script id="record-creation-form-template" type="text/x-template">
     <div>
-        <h1 class="header mb-4">Телефонная книга</h1>
+        <h1 class="header my-3">Телефонная книга</h1>
 
         <form class="mb-4 p-3 border needs-validation" novalidate>
             <div class="mb-3">
@@ -49,7 +49,7 @@
                 <input type="text" class="form-control" :class="phoneValidity" id="phone"
                        placeholder="Введите номер телефона *" required
                        name="phone" v-model.trim="phone" @input="checkPhoneValidity">
-                <div class="invalid-feedback">{{phoneErrorMessage}}</div>
+                <div class="invalid-feedback">{{ phoneErrorMessage }}</div>
             </div>
 
             <button type="submit" class="btn btn-primary" id="add-button" @click.prevent="addNewRecord">Добавить
@@ -69,7 +69,7 @@
                 <button type="button" class="btn btn-primary" @click="filterRecords">Найти</button>
             </div>
             <div class="col-auto mb-2">
-                <button type="button" class="btn btn-primary" @click="resetFilter">Сбросить</button>
+                <button type="button" class="btn btn-secondary" @click="resetFilter">Сбросить</button>
             </div>
         </div>
 
@@ -107,7 +107,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">{{dialogMessage}}</div>
+                    <div class="modal-body">{{ dialogMessage }}</div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                 @click="resetRecordToRemoveId">Нет
@@ -129,10 +129,10 @@
                 <input class="selector" type="checkbox" name="row-selector" v-model="record.checked">
             </label>
         </td>
-        <td class="number">{{record.number}}</td>
-        <td class="surname">{{record.surname}}</td>
-        <td class="name">{{record.name}}</td>
-        <td class="phone">{{record.phone}}</td>
+        <td class="number">{{ record.number }}</td>
+        <td class="surname">{{ record.surname }}</td>
+        <td class="name">{{ record.name }}</td>
+        <td class="phone">{{ record.phone }}</td>
         <td class="delete">
             <button type="button"
                     class="delete-button btn btn-primary"
