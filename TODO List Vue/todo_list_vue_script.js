@@ -12,7 +12,7 @@ Vue.component("todo-list-item", {
         return {
             isEditing: false,
             editText: "",
-            isEmptyEditText: false
+            editedItemValidity: ""
         };
     },
 
@@ -25,10 +25,10 @@ Vue.component("todo-list-item", {
         },
 
         saveEditedItem: function () {
-            this.isEmptyEditText = false;
+            this.editedItemValidity = "";
 
-            if (this.editText.trim() === "") {
-                this.isEmptyEditText = true;
+            if (this.editText === "") {
+                this.editedItemValidity = "is-invalid";
                 this.editText = "";
 
                 return;
@@ -38,8 +38,16 @@ Vue.component("todo-list-item", {
             this.$emit("save-item", this.item, this.editText);
         },
 
+        checkEditedItemValidity: function () {
+            if (this.editText !== "") {
+                this.editedItemValidity = "is-valid";
+            } else {
+                this.editedItemValidity = "is-invalid";
+            }
+        },
+
         cancelEditing: function () {
-            this.isEmptyEditText = false;
+            this.editedItemValidity = "";
             this.isEditing = false;
             this.editText = this.item.text;
         },
@@ -56,7 +64,7 @@ Vue.component("todo-list", {
             items: [], // {id, text}
             newTodoItem: "",
             newItemId: 1,
-            isEmptyText: false
+            itemValidity: ""
         };
     },
 
@@ -64,11 +72,11 @@ Vue.component("todo-list", {
 
     methods: {
         addNewItem: function () {
-            this.isEmptyText = false;
-            var text = this.newTodoItem.trim();
+            this.itemValidity = "";
+            var text = this.newTodoItem;
 
             if (text === "") {
-                this.isEmptyText = true;
+                this.itemValidity = "is-invalid";
                 this.newTodoItem = "";
 
                 return;
@@ -81,6 +89,14 @@ Vue.component("todo-list", {
 
             this.newTodoItem = "";
             this.newItemId++;
+        },
+
+        checkItemValidity: function () {
+            if (this.newTodoItem !== "") {
+                this.itemValidity = "is-valid";
+            } else {
+                this.itemValidity = "is-invalid";
+            }
         },
 
         deleteItem: function (item) {

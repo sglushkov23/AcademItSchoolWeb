@@ -25,16 +25,16 @@
     <div>
         <h1 class="my-3">TODO List Vue</h1>
 
-        <div class="row mb-3">
-            <div class="col pr-2">
-                <input class="form-control" type="text" v-model="newTodoItem" placeholder="Note text">
+        <form class="form-group row no-gutters needs-validation" novalidate>
+            <div class="col mr-2 mb-2">
+                <input class="form-control" :class="itemValidity" type="text" v-model.trim="newTodoItem"
+                       placeholder="Note text" @input="checkItemValidity">
+                <div class="invalid-feedback">Please enter text</div>
             </div>
-            <div class="col-auto">
+            <div class="col-auto mb-2">
                 <button type="button" class="btn btn-primary" @click="addNewItem">Add</button>
             </div>
-        </div>
-
-        <div class="mb-3 error-message" v-show="isEmptyText">Please enter text</div>
+        </form>
 
         <ul>
             <todo-list-item
@@ -50,25 +50,19 @@
 <script id="todo-list-item-template" type="text/x-template">
     <li class="mb-2">
         <template v-if="isEditing">
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" v-model="editText">
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-primary" type="button" @click="saveEditedItem">Save</button>
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-secondary" type="button" @click="cancelEditing">Cancel</button>
-                </div>
-            </div>
-
-            <div class="mt-1 mb-3 error-message" v-show="isEmptyEditText">Please enter text or press cancel</div>
+            <form class="form-inline needs-validation" novalidate>
+                <input type="text" class="form-control mr-1 mb-2" :class="editedItemValidity" v-model.trim="editText"
+                       @input="checkEditedItemValidity">
+                <button class="btn btn-primary mb-2" type="button" @click="saveEditedItem">Save</button>
+                <button class="btn btn-secondary mb-2" type="button" @click="cancelEditing">Cancel</button>
+                <div class="invalid-feedback mt-0 mb-3">Please enter text or press cancel</div>
+            </form>
         </template>
 
         <template v-else>
-            <span class="mr-3">{{ item.text }}</span>
-            <button class="btn btn-primary" type="button" @click="editItem">Edit</button>
-            <button class="btn btn-danger" type="button" @click="deleteItem">Delete</button>
+            <span class="mr-3 mb-2">{{ item.text }}</span>
+            <button class="btn btn-primary mb-2" type="button" @click="editItem">Edit</button>
+            <button class="btn btn-danger mb-2" type="button" @click="deleteItem">Delete</button>
         </template>
     </li>
 </script>
