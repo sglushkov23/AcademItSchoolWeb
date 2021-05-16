@@ -70,6 +70,8 @@ Vue.component("record-creation-form", {
                 this.phoneValidity = "is-invalid";
                 this.phoneErrorMessage = "Пожалуйста, введите номер телефона.";
             } else {
+                this.phoneValidity = "is-valid";
+                this.phoneErrorMessage = "";
                 this.$emit("need-check-phone", this.phone)
             }
         },
@@ -119,7 +121,7 @@ Vue.component("records-table", {
             isSelectedAllRecords: false,
             hasGivenPhoneNumber: false,
             searchText: "",
-            recordToRemoveId: -1,
+            recordIdToRemove: -1,
             dialogMessage: "Вы действительно хотите удалить выделенные записи?"
         };
     },
@@ -145,8 +147,8 @@ Vue.component("records-table", {
             this.$emit("phone-checked", this.hasGivenPhoneNumber);
         },
 
-        recordToRemoveId: function () {
-            this.dialogMessage = this.recordToRemoveId === -1 ?
+        recordIdToRemove: function () {
+            this.dialogMessage = this.recordIdToRemove === -1 ?
                 "Вы действительно хотите удалить выделенные записи?" :
                 "Вы действительно хотите удалить выбранную запись?";
         }
@@ -154,11 +156,16 @@ Vue.component("records-table", {
 
     methods: {
         filterRecords: function () {
+            if (this.searchText.length === 0) {
+                this.filteredRecords = this.records;
+
+                return;
+            }
+
             var text = this.searchText.toUpperCase();
 
             this.filteredRecords = this.records.filter(function (e) {
-                return text.length === 0 ||
-                    e.surname.toUpperCase().indexOf(text) >= 0 ||
+                return e.surname.toUpperCase().indexOf(text) >= 0 ||
                     e.name.toUpperCase().indexOf(text) >= 0 ||
                     e.phone.toUpperCase().indexOf(text) >= 0;
             });
@@ -169,27 +176,27 @@ Vue.component("records-table", {
             this.filterRecords();
         },
 
-        setRecordToRemoveId: function (recordId) {
-            this.recordToRemoveId = recordId;
+        setRecordIdToRemove: function (recordId) {
+            this.recordIdToRemove = recordId;
         },
 
-        resetRecordToRemoveId: function () {
-            this.recordToRemoveId = -1;
+        resetRecordIdToRemove: function () {
+            this.recordIdToRemove = -1;
         },
 
         deleteRecord: function () {
-            if (this.recordToRemoveId === -1) {
+            if (this.recordIdToRemove === -1) {
                 return;
             }
 
-            var recordId = this.recordToRemoveId;
+            var recordId = this.recordIdToRemove;
 
             this.records = this.records.filter(function (e) {
                 return e.id !== recordId;
             });
 
             this.filterRecords();
-            this.recordToRemoveId = -1;
+            this.recordIdToRemove = -1;
         },
 
         selectAllRecords: function () {
@@ -201,7 +208,7 @@ Vue.component("records-table", {
         },
 
         deleteSelectedRecords: function () {
-            if (this.recordToRemoveId === -1) {
+            if (this.recordIdToRemove === -1) {
                 this.records = this.records.filter(function (e) {
                     return !e.checked;
                 });
@@ -212,7 +219,7 @@ Vue.component("records-table", {
                 return;
             }
 
-            var recordId = this.recordToRemoveId;
+            var recordId = this.recordIdToRemove;
 
             this.records = this.records.filter(function (e) {
                 return e.id !== recordId;
@@ -220,7 +227,7 @@ Vue.component("records-table", {
 
             this.renumberRecords();
             this.filterRecords();
-            this.recordToRemoveId = -1;
+            this.recordIdToRemove = -1;
         },
 
         renumberRecords: function () {
