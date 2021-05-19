@@ -1,0 +1,20 @@
+.container {
+    max-width: 700px;
+}
+
+.container form {
+    background-color: #f2f2f2;
+}
+
+.container form button, .delete-rows-button {
+    display: block;
+    margin-left: auto;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.shown-dialog {
+    display: block;
+}
