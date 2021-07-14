@@ -8,12 +8,13 @@ var newId = 0;
 router.get("/api/getRecords", function (req, res) {
     var searchText = (req.query.searchText || "").toUpperCase();
 
-    var result = records.filter(function (r) {
-        return searchText === "" ||
-            r.surname.toUpperCase().indexOf(searchText) >= 0 ||
-            r.name.toUpperCase().indexOf(searchText) >= 0 ||
-            r.phone.toUpperCase().indexOf(searchText) >= 0;
-    });
+    var result = searchText === ""
+        ? records
+        : records.filter(function (r) {
+            return r.surname.toUpperCase().indexOf(searchText) >= 0 ||
+                r.name.toUpperCase().indexOf(searchText) >= 0 ||
+                r.phone.toUpperCase().indexOf(searchText) >= 0;
+        });
 
     res.send(result);
 });

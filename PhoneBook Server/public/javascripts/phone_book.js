@@ -166,7 +166,8 @@ Vue.component("records-table", {
             searchText: "",
             recordIdToRemove: -1,
             dialogMessage: "Вы действительно хотите удалить выделенные записи?",
-            service: new PhoneBookService()
+            service: new PhoneBookService(),
+            disabled: "disabled"
         };
     },
 
@@ -183,7 +184,7 @@ Vue.component("records-table", {
                 return;
             }
 
-            var phone = this.phoneNumber
+            var phone = this.phoneNumber;
 
             this.hasGivenPhoneNumber = this.records.some(function (e) {
                 return e.phone === phone;
@@ -193,9 +194,9 @@ Vue.component("records-table", {
         },
 
         recordIdToRemove: function () {
-            this.dialogMessage = this.recordIdToRemove === -1 ?
-                "Вы действительно хотите удалить выделенные записи?" :
-                "Вы действительно хотите удалить выбранную запись?";
+            this.dialogMessage = this.recordIdToRemove === -1
+                ? "Вы действительно хотите удалить выделенные записи?"
+                : "Вы действительно хотите удалить выбранную запись?";
         }
     },
 
@@ -216,11 +217,10 @@ Vue.component("records-table", {
         },
 
         deleteRecords: function () {
-            var idsToRemove = this.recordIdToRemove === -1 ? this.getSelectedRecordsIds() : [this.recordIdToRemove]
+            var idsToRemove = this.recordIdToRemove === -1
+                ? this.getSelectedRecordsIds()
+                : [this.recordIdToRemove];
             var self = this;
-            var request = {
-                ids: idsToRemove
-            };
 
             this.service.deleteRecords(idsToRemove).done(function (response) {
                 if (!response.success) {
@@ -235,6 +235,7 @@ Vue.component("records-table", {
             });
 
             this.recordIdToRemove = -1;
+            this.disabled = "disabled";
         },
 
         getSelectedRecordsIds: function () {
@@ -243,6 +244,14 @@ Vue.component("records-table", {
             }).map(function (e) {
                 return e.id;
             });
+        },
+
+        checkForSelectedRecords: function () {
+            if (this.getSelectedRecordsIds().length > 0) {
+                this.disabled = "";
+            } else {
+                this.disabled = "disabled";
+            }
         },
 
         resetFilter: function () {
@@ -296,12 +305,16 @@ Vue.component("record", {
             surname: this.record.surname,
             name: this.record.name,
             phone: this.record.phone
-        }
+        };
     },
 
     methods: {
         deleteRecord: function () {
             this.$emit("delete-record", this.id);
+        },
+
+        selectRecord: function () {
+            this.$emit("select-record")
         }
     },
 

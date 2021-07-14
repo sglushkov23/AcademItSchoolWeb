@@ -18,3 +18,7 @@
 .shown-dialog {
     display: block;
 }
+
+.disabled {
+    pointer-events: none;
+}

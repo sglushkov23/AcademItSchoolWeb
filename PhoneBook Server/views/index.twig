@@ -92,7 +92,7 @@
                 <th class="align-middle">
                     <label class="my-0">
                         <input type="checkbox" name="all-rows-selector" v-model="isSelectedAllRecords"
-                               @change="selectAllRecords">
+                               @change="selectAllRecords" @change="checkForSelectedRecords">
                     </label>
                 </th>
                 <th class="align-middle">№</th>
@@ -106,11 +106,15 @@
             <record
                     v-for="record in records"
                     :key="record.id"
-                    :record="record" @delete-record="setRecordIdToRemove"></record>
+                    :record="record"
+                    @delete-record="setRecordIdToRemove"
+                    @select-record="checkForSelectedRecords">
+            </record>
             </tbody>
         </table>
 
-        <button id="delete-selected-rows-button" class="btn btn-primary delete-rows-button mb-3" type="button"
+        <button id="delete-selected-rows-button" :class="disabled" class="btn btn-primary delete-rows-button mb-3"
+                type="button"
                 data-toggle="modal" data-target="#dialog">Удалить выбранное
         </button>
 
@@ -143,7 +147,8 @@
     <tr>
         <td class="align-middle">
             <label class="my-0">
-                <input class="selector" type="checkbox" name="row-selector" v-model="record.checked">
+                <input class="selector" type="checkbox" name="row-selector" v-model="record.checked"
+                       @change="selectRecord">
             </label>
         </td>
         <td class="align-middle">{{ record.number }}</td>
