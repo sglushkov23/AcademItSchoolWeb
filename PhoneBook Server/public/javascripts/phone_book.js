@@ -214,6 +214,8 @@ Vue.component("records-table", {
             }).fail(function () {
                 self.$emit("show-info-dialog", "Не удалось загрузить список записей");
             });
+
+            this.disabled = "disabled";
         },
 
         deleteRecords: function () {
@@ -235,7 +237,6 @@ Vue.component("records-table", {
             });
 
             this.recordIdToRemove = -1;
-            this.disabled = "disabled";
         },
 
         getSelectedRecordsIds: function () {
@@ -249,9 +250,10 @@ Vue.component("records-table", {
         checkForSelectedRecords: function () {
             if (this.getSelectedRecordsIds().length > 0) {
                 this.disabled = "";
-            } else {
-                this.disabled = "disabled";
+                return;
             }
+
+            this.disabled = "disabled";
         },
 
         resetFilter: function () {
