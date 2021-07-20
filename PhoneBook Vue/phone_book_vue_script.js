@@ -70,9 +70,15 @@ Vue.component("record-creation-form", {
                 this.phoneValidity = "is-invalid";
                 this.phoneErrorMessage = "Пожалуйста, введите номер телефона.";
             } else {
-                this.phoneValidity = "is-valid";
-                this.phoneErrorMessage = "";
-                this.$emit("need-check-phone", this.phone)
+                if (this.hasGivenPhoneNumber) {
+                    this.phoneValidity = "is-invalid";
+                    this.phoneErrorMessage = "Контакт с таким номером телефона уже добавлен.";
+                } else {
+                    this.phoneValidity = "is-valid";
+                    this.phoneErrorMessage = "";
+                }
+
+                this.$emit("need-check-phone", this.phone);
             }
         },
 
@@ -122,7 +128,8 @@ Vue.component("records-table", {
             hasGivenPhoneNumber: false,
             searchText: "",
             recordIdToRemove: -1,
-            dialogMessage: "Вы действительно хотите удалить выделенные записи?"
+            dialogMessage: "Вы действительно хотите удалить выделенные записи?",
+            disabled: "disabled"
         };
     },
 
@@ -165,9 +172,15 @@ Vue.component("records-table", {
             var text = this.searchText.toUpperCase();
 
             this.filteredRecords = this.records.filter(function (e) {
-                return e.surname.toUpperCase().indexOf(text) >= 0 ||
+                var result = e.surname.toUpperCase().indexOf(text) >= 0 ||
                     e.name.toUpperCase().indexOf(text) >= 0 ||
                     e.phone.toUpperCase().indexOf(text) >= 0;
+
+                if (!result) {
+                    e.checked = false;
+                }
+
+                return result;
             });
         },
 
@@ -202,7 +215,7 @@ Vue.component("records-table", {
         selectAllRecords: function () {
             var isSelected = this.isSelectedAllRecords;
 
-            this.records.forEach(function (e) {
+            this.filteredRecords.forEach(function (e) {
                 e.checked = isSelected;
             });
         },
@@ -215,6 +228,7 @@ Vue.component("records-table", {
 
                 this.renumberRecords();
                 this.filterRecords();
+                this.disabled = "disabled";
 
                 return;
             }
@@ -237,7 +251,25 @@ Vue.component("records-table", {
                 e.number = currentRecordNumber;
                 currentRecordNumber++;
             });
-        }
+        },
+
+        getSelectedRecordsIds: function () {
+            return this.filteredRecords.filter(function (e) {
+                return e.checked;
+            }).map(function (e) {
+                return e.id;
+            });
+        },
+
+        checkForSelectedRecords: function () {
+            if (this.getSelectedRecordsIds().length > 0) {
+                this.disabled = "";
+
+                return;
+            }
+
+            this.disabled = "disabled";
+        },
     },
 
     template: "#records-table-template",
@@ -265,6 +297,10 @@ Vue.component("record", {
     methods: {
         deleteRecord: function () {
             this.$emit("delete-record", this.id);
+        },
+
+        selectRecord: function () {
+            this.$emit("select-record")
         }
     },
 
