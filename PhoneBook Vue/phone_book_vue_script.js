@@ -242,6 +242,7 @@ Vue.component("records-table", {
             this.renumberRecords();
             this.filterRecords();
             this.recordIdToRemove = -1;
+            this.checkForSelectedRecords();
         },
 
         renumberRecords: function () {
@@ -263,7 +264,7 @@ Vue.component("records-table", {
 
         checkForSelectedRecords: function () {
             if (this.getSelectedRecordsIds().length > 0) {
-                this.disabled = "";
+                this.disabled = "abc";
 
                 return;
             }
