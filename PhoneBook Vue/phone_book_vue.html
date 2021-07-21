@@ -77,33 +77,35 @@
             </div>
         </div>
 
-        <table class="table table-striped table-bordered table-responsive-sm">
-            <thead class="table-dark">
-            <tr>
-                <th class="align-middle">
-                    <label class="my-0">
-                        <input type="checkbox" name="all-rows-selector" v-model="isSelectedAllRecords"
-                               @change="selectAllRecords" @change="checkForSelectedRecords">
-                    </label>
-                </th>
-                <th class="align-middle">№</th>
-                <th class="align-middle">Фамилия</th>
-                <th class="align-middle">Имя</th>
-                <th class="align-middle">Номер телефона</th>
-                <th class="align-middle"></th>
-            </tr>
-            </thead>
-            <tbody id="table-body">
-            <record
-                    v-for="record in filteredRecords"
-                    :key="record.id"
-                    :record="record"
-                    @delete-record="setRecordIdToRemove"
-                    @select-record="checkForSelectedRecords"></record>
-            </tbody>
-        </table>
+        <div class="table-responsive-sm">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                <tr>
+                    <th class="align-middle">
+                        <label class="my-0">
+                            <input type="checkbox" name="all-rows-selector" v-model="isSelectedAllRecords"
+                                   @change="selectAllRecords" @change="checkForSelectedRecords">
+                        </label>
+                    </th>
+                    <th class="align-middle">№</th>
+                    <th class="align-middle">Фамилия</th>
+                    <th class="align-middle">Имя</th>
+                    <th class="align-middle">Номер телефона</th>
+                    <th class="align-middle"></th>
+                </tr>
+                </thead>
+                <tbody id="table-body">
+                <record
+                        v-for="record in filteredRecords"
+                        :key="record.id"
+                        :record="record"
+                        @delete-record="setRecordIdToRemove"
+                        @select-record="checkForSelectedRecords"></record>
+                </tbody>
+            </table>
+        </div>
 
-        <button id="delete-selected-rows-button" :class="disabled" class="btn btn-primary delete-rows-button mb-3"
+        <button id="delete-selected-rows-button" :class="disabled" class="btn btn-primary delete-rows-button my-3"
                 type="button"
                 data-toggle="modal" data-target="#dialog">Удалить выбранное
         </button>
