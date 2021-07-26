@@ -1,0 +1,32 @@
+@import "~bootstrap/scss/bootstrap.scss";
+
+$max-width: 700px;
+
+@mixin block {
+    display: block;
+}
+
+.container {
+    max-width: $max-width;
+
+    form {
+        background-color: #f2f2f2;
+    }
+
+    form button, .delete-rows-button {
+        @include block;
+        margin-left: auto;
+    }
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.shown-dialog {
+    @include block;
+}
+
+.disabled {
+    pointer-events: none;
+}
